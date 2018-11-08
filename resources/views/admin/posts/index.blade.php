@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <h1>Posts List</h1>
     <div class="row">       
         @if (session('success_post')!==null)
@@ -43,5 +45,34 @@
 @endsection
 
 @section('footer')
-    
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).on('click','#btn-delete',function(e){        
+            e.preventDefault(); // does not go through with the link.
+
+            if(confirm('Are you sure you want to delete this post?')){
+                var $this = $(this);                
+                $.ajax({
+                    type    : 'DELETE', 
+                    url     : $this.attr('href'),
+                    data: {
+                        "_method": 'DELETE'
+                    },
+                    encode  : true,
+                    success:function(data) {
+                    //    alert(data);
+                       if(data.trim()=='success'){
+                           location.reload();
+                       }else{
+                           alert('Delete failed');
+                       }
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

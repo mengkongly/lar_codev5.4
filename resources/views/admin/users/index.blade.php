@@ -73,7 +73,7 @@
                     },
                     encode  : true,
                     success:function(data) {
-                       alert(data);
+                    //    alert(data);
                        if(data.trim()=='success'){
                            location.reload();
                        }else{

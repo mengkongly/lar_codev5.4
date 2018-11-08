@@ -162,6 +162,17 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // return 'destroy';
+        $user   =   Auth::user();
+        $post   =   $user->posts->find($id);
+
+        if(count($post->photos)>0){
+            unlink(public_path(). '/'. $post->photos[0]->path);
+            $post->photos()->delete();
+        }
+        
+        $post->delete();
+        Session::flash('success_post','The post has been deleted successfully.');
+        return 'success';
     }
 }
