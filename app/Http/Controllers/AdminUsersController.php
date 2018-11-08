@@ -23,7 +23,7 @@ class AdminUsersController extends Controller
         // $users   =   User::with(['roles'=>function($q){
         //     $q->select('name');
         // }])->get();
-        $users   =   User::with('role')->get();
+        $users   =   User::with('role')->get();        
 
         //return $users; 
         return view('admin.users.index',compact('users'));
@@ -136,12 +136,7 @@ class AdminUsersController extends Controller
             }
         }
         $input  =   $request->all();
-        $input['is_active'] =   $this->checkBoxIsActive($input);
-        // if(isset($input['is_active'])){
-        //     $input['is_active']     =   1;
-        // }else{
-        //     $input['is_active']     =   0;
-        // }
+        $input['is_active'] =   $this->checkBoxIsActive($input);        
         // return $request->all();
         // return $input;
         //return $request->is_active;
@@ -181,4 +176,6 @@ class AdminUsersController extends Controller
             return 0;
         }
     }
+
+    
 }

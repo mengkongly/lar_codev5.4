@@ -36,7 +36,7 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>                                    
                     <td>{{$user->role->name}}</td>
-                    <td>{{$user->is_active}}</td>
+                    <td>{{$user->showActivedStatus($user->is_active)}}</td>
                     <td>{{$user->created_at->diffForHumans()}}</td>
                     <td>
                         <a href="{{route('users.edit',['id'=>$user->id])}}" class="btn btn-info btn-sm">Edit</a>
