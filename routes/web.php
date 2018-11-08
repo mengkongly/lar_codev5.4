@@ -23,4 +23,16 @@ Route::get('/admin',function(){
     return view('admin.index');
 });
 
-Route::resource('/users','AdminUsersController');
+
+Route::group(['middleware'=>'admin'],function(){
+    
+    Route::resource('/users','AdminUsersController');
+
+});
+
+Route::get('unlink',function(){
+
+    echo $path   =   public_path().'/images/'.'1541654789_m2.jpeg';
+    unlink($path);
+});
+

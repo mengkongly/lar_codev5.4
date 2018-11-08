@@ -8,6 +8,7 @@ use App\Role;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -63,11 +64,13 @@ class AdminUsersController extends Controller
         $input['is_active'] =   $this->checkBoxIsActive($input);
 
         //return $request->all();
-        $request['password']    =   bcrypt($request['password']);
-        $user =   User::create($request->all());
+        // $request['password']    =   bcrypt($request['password']);
+        $input['password']    =   bcrypt($input['password']);
+        $user =   User::create($input);
 
         // save photo to Photos table by $user
         $user->photos()->create($photo);
+        Session::flash('success_user','The user has been added successfully.');
         return redirect('/users');
         
     }
@@ -107,7 +110,7 @@ class AdminUsersController extends Controller
     {
         $user   =   User::with('photos')->find($id);
         
-        //$photo['path']  =   (count($user->photos)>0)?$user->photos[0]->path:'';
+        $photo['path']  =   (count($user->photos)>0)?$user->photos[0]->path:'';
         if($request->hasFile('file')){ //..check if file existed
             
             $file = $request->file('file');
@@ -117,7 +120,8 @@ class AdminUsersController extends Controller
 
             // delete old image file
             if(!empty($photo['path'])){
-                Storage::delete($photo['path']);
+                // Storage::delete($photo['path']);
+                unlink(public_path(). '/'. $user->photos[0]->path);
             }
             // File::delete(public_path() . '/images/profile/', $article->file->name);
 
@@ -143,6 +147,7 @@ class AdminUsersController extends Controller
         //return $request->is_active;
         $user->update($input);
 
+        Session::flash('success_user','The user has been updated successfully.');
         return redirect('/users');
         
         // return $request->all();
@@ -158,8 +163,14 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         $user   =   User::findOrFail($id);
-        $user->photos()->delete();
+        
+        if(count($user->photos)>0){
+            unlink(public_path(). '/'. $user->photos[0]->path);
+            $user->photos()->delete();
+        }
+        
         $user->delete();
+        Session::flash('success_user','The user has been deleted successfully.');
         return 'success';
     }
 

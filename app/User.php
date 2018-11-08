@@ -56,4 +56,12 @@ class User extends Authenticatable
             return asset($this->defualt_img);
         }
     }
+
+
+    public function isAdmin(){
+        if($this->role->name    ==  "Administrator"){
+            return true;
+        }
+        return false;
+    }
 }

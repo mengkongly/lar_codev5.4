@@ -2,8 +2,17 @@
 
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    
+        
+    
     <h2>User List</h2>
-    <div class="row">        
+    <div class="row">       
+        @if (!empty(session('success_user')))
+        <div class="alert alert-success" role="alert">
+            {{session('success_user')}}
+        </div>
+        @endif 
         <table class="table table-bordered">
             <thead>
               <tr>
@@ -64,7 +73,7 @@
                     },
                     encode  : true,
                     success:function(data) {
-                    //    alert(data);
+                       alert(data);
                        if(data.trim()=='success'){
                            location.reload();
                        }else{
