@@ -93,7 +93,13 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user   =   Auth::user();
+        $post   =   $user->posts->find($id);
+        $categories =   Category::all();
+
+        // return $post;
+        return view('admin.posts.edit',compact('post','categories'));
+
     }
 
     /**
@@ -103,9 +109,49 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        //
+        $user   =   Auth::user();
+        $post   =   $user->posts->find($id);
+
+        $photo['path']  =   (count($post->photos)>0)?$post->photos[0]->path:'';
+        // return public_path(). '/'.$photo['path'];
+        if($request->hasFile('file')){ //..check if file existed
+            
+            $file = $request->file('file');
+            $file_name  =   'post_'. time().'_'.$file->getClientOriginalName();
+            // it will create images folder in public directory to store images
+            $file->move('images',$file_name);
+
+            // delete old image file
+            if(!empty($photo['path'])){
+                // Storage::delete($photo['path']);
+                unlink(public_path(). '/'. $post->photos[0]->path);
+            }
+            // File::delete(public_path() . '/images/profile/', $article->file->name);
+
+            //change image name
+            $photo['path']  =   $file_name;
+
+            // update/save photo to Photos table by $user
+            if(count($post->photos)>0){
+                $post->photos()->update($photo);
+            }else{
+                $post->photos()->create($photo);
+            }
+        }
+        $input  =   $request->all();
+        // return $request->all();
+        // return $input;
+        //return $request->is_active;
+        $post->update($input);
+
+        Session::flash('success_post','The post has been updated successfully.');
+        return redirect(route('posts.index'));
+
+        // return $post;
+
+
     }
 
     /**
