@@ -26,10 +26,13 @@ Route::get('/admin',function(){
 
 Route::group(['middleware'=>'admin'],function(){
     
-    Route::resource('/users','AdminUsersController');
+    Route::resource('/admin/users','AdminUsersController');
+
+    Route::resource('/admin/posts','AdminPostsController');
 
 });
 
+//for test
 Route::get('unlink',function(){
 
     echo $path   =   public_path().'/images/'.'1541654789_m2.jpeg';

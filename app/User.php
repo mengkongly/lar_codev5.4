@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->morphMany('App\Photo','photoable');
     }
 
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
+
     public function showPhoto(User $user){
         //  return $user;
 

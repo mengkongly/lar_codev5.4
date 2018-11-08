@@ -22,7 +22,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col">Actived</th>
-                <th scope="col">Created At</th>
+                <th scope="col">Created</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
