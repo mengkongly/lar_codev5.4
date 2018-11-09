@@ -29,7 +29,7 @@
             </div>
     
             <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
-                <label for="category" class="col-md-2 control-label">Category Name</label>
+                <label for="category" class="col-md-2 control-label">Category</label>
                 <div class="col-md-6">
                     <select class="form-control" id="category" name="category_id">
                         @foreach ($categories as $category)

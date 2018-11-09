@@ -14,7 +14,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Photo</th>
                 <th scope="col">Title</th>
-                <th scope="col">Category Name</th>
+                <th scope="col">Category</th>
                 <th scope="col">Description</th>
                 <th scope="col">Created</th>
                 <th scope="col">Action</th>

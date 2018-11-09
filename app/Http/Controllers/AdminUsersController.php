@@ -71,7 +71,7 @@ class AdminUsersController extends Controller
         // save photo to Photos table by $user
         $user->photos()->create($photo);
         Session::flash('success_user','The user has been added successfully.');
-        return redirect('/users');
+        return redirect(route('users.index'));
         
     }
 
@@ -143,7 +143,7 @@ class AdminUsersController extends Controller
         $user->update($input);
 
         Session::flash('success_user','The user has been updated successfully.');
-        return redirect('/users');
+        return redirect(route('users.index'));
         
         // return $request->all();
 
