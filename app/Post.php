@@ -22,6 +22,10 @@ class Post extends Model
         return $this->morphMany('App\Photo','photoable');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
     public function showPhoto(Post $post){
         //  return $user;
 
