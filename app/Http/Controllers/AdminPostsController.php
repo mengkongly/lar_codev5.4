@@ -8,6 +8,8 @@ use App\Http\Requests\PostRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Post;
+// use Illuminate\Support\Facades\Request;
 
 class AdminPostsController extends Controller
 {
@@ -174,5 +176,18 @@ class AdminPostsController extends Controller
         $post->delete();
         Session::flash('success_post','The post has been deleted successfully.');
         return 'success';
+    }
+
+    public function post($id){
+        // $id =   $request->get('id');
+        $post   =   Post::find($id);
+        // $post   =   Post::with('user')->find($id);
+        $post['posted_at']  =   $post->created_at->format('M d, Y h:m A');
+
+        $comments   =   $post->comments->where('is_active',1);
+        
+        // return $post;
+        return view('post',compact('post','comments'));
+
     }
 }

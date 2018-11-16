@@ -50,6 +50,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
+    public function commentReplies(){
+        return $this->hasMany('App\CommentReply');
+    }
+
     public function showPhoto(User $user){
         //  return $user;
 
@@ -76,4 +84,5 @@ class User extends Authenticatable
             return 'Not Active';
         }
     }
+
 }

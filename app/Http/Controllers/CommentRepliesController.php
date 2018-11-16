@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\CommentReply;
+use Illuminate\Support\Facades\Session;
 
 class CommentRepliesController extends Controller
 {
@@ -80,5 +83,29 @@ class CommentRepliesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function replyComment(Request $request,$id){
+        if(Auth::check()){
+            $user   =   Auth::user();
+            $reply    =   $request->all();
+            $reply['comment_id']    =   $id;
+            $reply['user_id']  =   $user->id;
+            $reply['is_active']   =   1;
+
+            $is_success =   CommentReply::create($reply);
+            if($is_success){
+                Session::flash('success_comment','The Reply has been added successfully.');            
+            }else{
+                Session::flash('error_comment','Failed to Reply.');
+            }
+        }else{
+            Session::flash('error_comment','Please login to make Reply.');
+        }
+        return 'done';
+        //return $user;
+        // return redirect(route('post.detail',['id'=>$request->get('post_id')]));
+        // return redirect()->back();
+
     }
 }

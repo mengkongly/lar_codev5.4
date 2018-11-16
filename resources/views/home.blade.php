@@ -1,23 +1,56 @@
-@extends('layouts.app')
+@extends('layouts.blog-home')
+{{-- @extends('layouts.app') --}}
+
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        <h1 class="page-header">
+            Page Heading
+            <small>Secondary Text</small>
+        </h1>
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+        @if (count($posts)>0)
+            
+            @foreach ($posts as $post)
+                <!-- First Blog Post -->
+                <h2>
+                    <a href="#">{{$post->title}}</a>
+                </h2>
+                <p class="lead">
+                    by <a href="index.php">{{$post->user->name}}</a>
+                </p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{$post->created_at->format('M d, Y') }} at {{$post->created_at->format(' h:m A')}}</p>
+                <hr>
+                <img class="img-responsive" src="{{$post->showPhoto($post)}}" height="300" alt="">
+                <hr>
+                <p>{{$post->body}}</p>
+                <a class="btn btn-primary" href="{{route('post.detail',$post->id)}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                <hr>
+
+            @endforeach
+        @endif
+        
+
+
+        <!-- Pager -->
+        {{-- <ul class="pager">
+            <li class="previous">
+                <a href="#">&larr; Older</a>
+            </li>
+            <li class="next">
+                <a href="#">Newer &rarr;</a>
+            </li>
+        </ul> --}}
+        {{$posts->links()}}
+
     </div>
-</div>
+
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4">
+        @include('layouts.post-sidebar')
+    </div>
 @endsection
+
