@@ -178,10 +178,12 @@ class AdminPostsController extends Controller
         return 'success';
     }
 
-    public function post($id){
+    public function post($slug){
         // $id =   $request->get('id');
-        $post   =   Post::find($id);
+        // $post   =   Post::find($id);
+        $post   =   Post::where('slug',$slug)->first();
         // $post   =   Post::with('user')->find($id);
+        // return $post;
         $post['posted_at']  =   $post->created_at->format('M d, Y h:m A');
 
         $comments   =   $post->comments->where('is_active',1);

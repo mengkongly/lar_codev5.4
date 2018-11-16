@@ -26,7 +26,7 @@
                 <img class="img-responsive" src="{{$post->showPhoto($post)}}" height="300" alt="">
                 <hr>
                 <p>{{$post->body}}</p>
-                <a class="btn btn-primary" href="{{route('post.detail',$post->id)}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a class="btn btn-primary" href="{{route('post.detail',$post->slug)}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                 <hr>
 
