@@ -44,7 +44,10 @@
                 <a href="#">Newer &rarr;</a>
             </li>
         </ul> --}}
-        {{$posts->links()}}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5">{{$posts->links()}}</div>
+        </div>
+        
 
     </div>
 

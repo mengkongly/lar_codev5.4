@@ -27,8 +27,18 @@ class AdminPostsController extends Controller
     public function index()
     {
 
-        $user   =   Auth::user();
-        $posts      =   $user->posts;
+
+        // $user   =   Auth::user();
+        // $posts      =   $user->posts;
+
+        // $posts      =   Post::join('users','users.id','=','posts.user_id')
+        //                 ->where('users.id',$user->id)
+        //                 ->paginate(2);
+
+        $posts  =   Post::paginate(1);
+                        
+        // return $posts;
+
         return view('admin.posts.index',compact('posts'));
     }
 

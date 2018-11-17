@@ -27,8 +27,8 @@
                     <td>
                         <img src="{{$post->showPhoto($post)}}" alt="{{$post->title}}" height="35">
                     </td>
-                    <td>{{$post->title}}</td>
-                    <td>{{$post->category->name}}</td>                                    
+                    <td><a href="{{route('post.detail',$post->slug)}}">{{$post->title}}</a></td>
+                    <td>{{$post->category->name}}</td>
                     <td>{{$post->body}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
                     <td>
@@ -41,6 +41,9 @@
                             
             </tbody>
           </table>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-5">{{$posts->links()}}</div>
+          </div>
     </div>
 @endsection
 
