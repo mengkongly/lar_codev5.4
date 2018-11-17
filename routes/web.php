@@ -47,10 +47,8 @@ Route::group(['middleware'=>['admin']],function(){
 // });
 Route::post('/post/comment/{id}/reply',['as'=>'comment.reply','uses'=>'CommentRepliesController@replyComment']);
 
-//for test
-Route::get('unlink',function(){
-
-    echo $path   =   public_path().'/images/'.'1541654789_m2.jpeg';
-    unlink($path);
+// create by configure filemanager & intervention image upload
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 

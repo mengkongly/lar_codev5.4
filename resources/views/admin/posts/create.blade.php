@@ -4,6 +4,7 @@
 <h2>Create Post</h2>
 <h1 class="page-header"></h1>
 <div class="row">
+    @include('includes.tinyeditor')
     <form class="form-horizontal" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
@@ -38,10 +39,10 @@
         </div>
 
         <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-            <label for="body" class="col-md-2 control-label">Password</label>
+            <label for="body" class="col-md-2 control-label">Description</label>
 
-            <div class="col-md-6">
-            <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{old('body')}}</textarea>
+            <div class="col-md-10">
+            <textarea name="body" id="body" class="form-control my-editor" cols="30" rows="10">{{old('body')}}</textarea>
 
                 @if ($errors->has('body'))
                     <span class="help-block">

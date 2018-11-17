@@ -21,9 +21,10 @@
               </tr>
             </thead>
             <tbody>
-            @foreach ($posts as $post)
+
+            @foreach ($posts as $key => $post)
                 <tr>    
-                    <th scope="row">{{$loop->iteration}}</th>
+                    <th scope="row">{{$posts->firstItem()+$key}}</th>
                     <td>
                         <img src="{{$post->showPhoto($post)}}" alt="{{$post->title}}" height="35">
                     </td>

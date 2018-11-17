@@ -35,9 +35,12 @@ class AdminPostsController extends Controller
         //                 ->where('users.id',$user->id)
         //                 ->paginate(2);
 
-        $posts  =   Post::paginate(1);
+        $posts  =   Post::orderBy('id','desc')->paginate(2);
                         
-        // return $posts;
+        // return var_dump($posts);
+        // return $posts->from();
+        
+        // return $posts->firstItem();
 
         return view('admin.posts.index',compact('posts'));
     }
