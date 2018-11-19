@@ -37,6 +37,8 @@ Route::group(['middleware'=>['admin']],function(){
 
     Route::resource('/admin/medias','AdminMediasController');
 
+    Route::post('/admin/medias/delete',['as'=>'medias.deletes','uses'=>'AdminMediasController@mediaDeletes']);
+
     
 
 });

@@ -16,32 +16,45 @@
         </div>
     @endif
     @if ($photos)
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Photo</th>
-                    <th>Name</th>
-                    <th>Created</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            @foreach ($photos as $photo)
-                <tr>
-                    <td>{{$photo->id}}</td>
-                    <td>
-                        <img src="{{asset($photo->path)}}" height="50">
-                    </td>
-                    <td>{{$photo->path}}</td>
-                    <td>{{$photo->created_at->diffForHumans()}}</td>
-                    <td>
-                        <a href="{{route('medias.edit',['id'=>$photo->id])}}" class="btn btn-info btn-sm">Edit</a>
-                        <a href="{{route('medias.destroy',$photo->id)}}" class="btn btn-danger btn-sm" id="btn-delete" data-method="delete" data-toggle="confirmation">Delete</a>
-                    </td>
+        <form action="{{route('medias.deletes')}}" method="POST" class="form-inline">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <select class="form-control">
+                    <option value="delete">Delete</option>
+                </select>                
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" name="submit" class="form-control btn-danger">
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="checkAll"></th>
+                        <th>ID</th>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                @foreach ($photos as $photo)
+                    <tr>
+                        <td><input type="checkbox" name="checkboxMedias[]" class="checkBoxs" value="{{$photo->id}}"></td>
+                        <td>{{$photo->id}}</td>
+                        <td>
+                            <img src="{{asset($photo->path)}}" height="50">
+                        </td>
+                        <td>{{$photo->path}}</td>
+                        <td>{{$photo->created_at->diffForHumans()}}</td>
+                        <td>
+                            <a href="{{route('medias.edit',['id'=>$photo->id])}}" class="btn btn-info btn-sm">Edit</a>
+                            <a href="{{route('medias.destroy',$photo->id)}}" class="btn btn-danger btn-sm" id="btn-delete" data-method="delete" data-toggle="confirmation">Delete</a>
+                        </td>
 
-                </tr>
-            @endforeach
-        </table>
+                    </tr>
+                @endforeach
+            </table>
+        </form>
     @endif        
 
 </div>
@@ -75,6 +88,14 @@
                        }
                     }
                 });
+            }
+        });
+
+        $(document).on('click','#checkAll',function(){
+            if($(this).is(':checked')){
+                $('.checkBoxs').prop('checked',true);
+            }else{
+                $('.checkBoxs').prop('checked',false);
             }
         });
     </script>

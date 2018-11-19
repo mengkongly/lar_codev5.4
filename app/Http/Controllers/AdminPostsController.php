@@ -202,7 +202,12 @@ class AdminPostsController extends Controller
         $comments   =   $post->comments->where('is_active',1);
         
         // return $post;
-        return view('post',compact('post','comments'));
+        // using my own comment
+        // return view('post',compact('post','comments'));
+
+
+        // using disqus comment plugin 
+        return view('post-comment-plugin',compact('post'));
 
     }
 }

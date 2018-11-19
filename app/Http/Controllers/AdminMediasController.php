@@ -99,4 +99,25 @@ class AdminMediasController extends Controller
         }
         return 'done';
     }
+
+    public function mediaDeletes(Request $request){
+
+        if(!empty($request->checkboxMedias)){
+            $photos      =   Photo::findOrFail($request->checkboxMedias);
+
+            // return $photos;
+            $is_delete  =   false;
+            foreach($photos as $photo){
+                $is_delete  =   $photo->delete();
+            }
+            // return $request->all();
+            if($is_delete){
+                Session::flash('success_photo','The Photo has been deleted successfully.');
+            }else{
+                Session::flash('error_photo','The Photo failed to delete.');
+            }
+        }
+        
+        return redirect()->back();
+    }
 }
