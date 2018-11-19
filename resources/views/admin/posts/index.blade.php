@@ -28,9 +28,9 @@
                     <td>
                         <img src="{{$post->showPhoto($post)}}" alt="{{$post->title}}" height="35">
                     </td>
-                    <td><a href="{{route('post.detail',$post->slug)}}">{{$post->title}}</a></td>
+                    <td><a href="{{route('post.detail',$post->slug)}}">{{str_limit($post->title,30)}}</a></td>
                     <td>{{$post->category->name}}</td>
-                    <td>{{$post->body}}</td>
+                    <td>{{str_limit($post->body,30)}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
                     <td>
                         <a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-info btn-sm">Edit</a>
